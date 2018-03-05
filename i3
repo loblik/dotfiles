@@ -1,15 +1,10 @@
-
-set $vga VGA-0
-set $lcd LVDS-0
-
 set $mod Mod4
 set $alt Mod1
-
-#set $test_net ping -c 3 -W 10 nix.cz > /dev/null
 
 # default decorations
 new_window 1pixel
 
+# default font for i3
 font -*-fixed-medium-r-*-*-18-*-*-*-*-90-iso10646-1
 
 # change focus
@@ -98,7 +93,6 @@ bindsym $mod+b workspace back_and_forth
 # reload the configuration file bindsym $mod+Shift+C reload # restart i3 inplace (preserves your layout/session, can be used to upgrade i3) bindsym $mod+Shift+R restart, exec
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+E exit
-#
 bindsym $mod+Shift+R restart
 bindsym $mod+Shift+x exec dm-tool lock
 
@@ -142,23 +136,20 @@ bindsym Escape mode "default"
 }
 
 bar {
-#status_command i3status | gov_show.sh
- status_command i3status
-  verbose yes
-  tray_output HDMI-3
+    status_command i3status
+    verbose yes
+    tray_output HDMI-3
 }
 
 bindsym $mod+r mode "resize"
-
 bindsym $mod+t mode "focus"
 
 mode "focus" {
 
     bindsym m mode "default", [class="mplayer2"] focus
-    bindsym l mode "default", [class="luakit"] focus
+    bindsym l mode "default", [class="firefox"] focus
     bindsym i mode "default", [title="irssi"] focus
     bindsym t mode "default", [title="zsh"] focus
-    bindsym r mode "default", [title="rtorrent"] focus
 
     bindsym Escape mode "default"
 }
@@ -211,29 +202,15 @@ bindsym $mod+Shift+End exec sudo pm-suspend
 # urxvt tiled and floating
 bindsym $mod+Z exec urxvt
 bindsym $mod+x exec urxvt
-# -name ~~urxvt
 
 # make floating windows floating
 for_window [instance="~~*"] floating enable
-#for_window [title="mplayer2"] floating enable
-
-for_window [class="love"] floating enable
 
 # open clipboard in the browser (google search)
-bindsym $mod+o exec ~/opt/firefox/firefox "www.google.com/search?q=`xclip -o`"
-
-# make a print screen of root and active window
-bindsym Print exec screen.sh root
-bindsym Mod1+Print exec screen.sh active
+bindsym $mod+o exec /opt/firefox/firefox "www.google.com/search?q=`xclip -o`"
 
 # dmenu (a program launcher)
 bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -l 6 -fn '-*-fixed-medium-r-*-*-18-*-*-*-*-90-iso10646-1' -p 'run>' -nb '#050505' -sb 'darkred' -nf 'gray'"
-
-# governor select (dmenu)
-bindsym $mod+c exec sudo cpufreq-set -c0 -r -g `gov_select.sh`
-
-# set default governor
-exec sudo cpufreq-set -c0 -r -g ondemand
 
 # kill a window
 bindsym $mod+Shift+q kill
@@ -241,32 +218,6 @@ bindsym $mod+Shift+q kill
 # move workspace to outputs
 bindsym $mod+Left move workspace to output left
 bindsym $mod+Right move workspace to output right
-
-# focusing outputs
-#bindsym $mod+XF86Back focus output $lcd
-#bindsym $mod+XF86Forward focus output $vga
-
-# show specific scratchpad window and hide the others
-#bindsym $mod+F1 [instance="__[^1]"] move scratchpad, [instance="__1"] scratchpad show
-#bindsym $mod+F2 [instance="__[^2]"] move scratchpad, [instance="__2"] scratchpad show
-#bindsym $mod+F3 [instance="__[^3]"] move scratchpad, [instance="__3"] scratchpad show
-#bindsym $mod+F5 [instance="__[^5]"] move scratchpad, [instance="__5"] scratchpad show
-
-bindsym $mod+F4 [instance="__*"] move scratchpad
-
-bindsym $mod+F10 exec show_tree.sh
-bindsym $mod+F11 exec dumpyp -c screenshots/last
-
-# move all scratchpad windows to strachpad at first
-#for_window [instance="__*"] move to scratchpad, resize grow 100
-
-
-# exec scratchpad windows
-set $scratch_geom 160x50
-#exec urxvt -g $scratch_geom -name __2 -e zsh -c "while true; do ncmpc; done"
-#exec urxvt -g $scratch_geom -name __1 -e zsh -c "while true; do mutt ; done"
-#exec urxvt -g $scratch_geom -name __3 -e zsh -c "while true; do sdcv ; done"
-#exec urxvt -g $scratch_geom -name __5 -e zsh -c "while true; do rtorrent ; done"
 
 # basic layout
 exec i3-msg 'workspace 1:web; exec /home/z003kbct/opt/firefox/firefox'
@@ -281,7 +232,6 @@ exec nm-applet
 #assign [class="Dwb"] 1:web
 #assign [title="irssi*"] 2:im
 #assign [instance="download"] 11:down
-
 #assign [class="rdesktop"] 9
 
 bindsym $mod+Shift+F10 border 1pixel
@@ -291,18 +241,9 @@ bindsym $mod+Shift+o border normal
 for_window [class="GV"] floating enable
 for_window [class="Gnuplot"] floating enable, move to center
 
-#client.background #050505
-
-for_window [title="radar-sh"] floating enable, move position 10px 10px
-
-# make sure the correct resolution is always set (some apps may break it then restarting i3 helps)
-#exec_always xrandr -s 1680x1050
-#floating_minimum_size 1200 x 800
-
 bindsym $mod+Shift+n exec i3-input -f '-*-fixed-medium-r-*-*-18-*-*-*-*-90-iso10646-1' -F 'rename workspace to "%s"' -P 'rename workspace: '
 
 # exec at startup
-
 # set locking (screensaver) timeout to 2 minutes
 exec xset s 120 120
 exec xss-lock -- i3lock -t -i ~/.wallpaper
