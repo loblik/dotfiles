@@ -1,0 +1,92 @@
+general {
+    colors = true
+    interval = 1
+#    color_degraded = "#d3d7cf"
+#    color_bad = "#d7875f"
+#    color_good = "#87d75f"
+    output_format = i3bar
+}
+
+#order  = "ipv6"
+order = "cpu_usage use"
+order += "volume master"
+order += "disk /home"
+order += "disk /"
+#order += "run_watch DHCP"
+order += "run_watch VPN"
+order += "wireless wlp2s0"
+order += "ethernet enp0s25"
+order += "ethernet usb0"
+order += "battery 0"
+order += "battery 1"
+order += "cpu_temperature 0"
+order += "load"
+order += "time"
+
+cpu_usage {
+  format = "%usage"
+}
+
+volume master {
+	format = "♪ %volume"
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+wireless wlp2s0 {
+  format_up = "W %ip (%quality, %essid, %bitrate)"
+  format_down = "W down"
+}
+
+ethernet enp0s25 {
+	# if you use %speed, i3status requires root privileges
+  format_up = "E %ip (%speed)"
+  format_down = "E down"
+}
+
+ethernet usb0 {
+	format_up = "U %ip"
+ 	format_down = "U down"
+}
+
+#ethernet edge0 {
+#	# if you use %speed, i3status requires root privileges
+#  format_up = "N2N %ip"
+#	format_down = "N2N down"
+#}
+
+battery 0 {
+	path = "/sys/class/power_supply/CMB1/uevent"
+	format = "%status %percentage %remaining"
+}
+
+run_watch DHCP {
+  pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPN {
+  pidfile = "/var/run/openvpn/home.pid"
+}
+
+time {
+	format = "%Y/%m/%d %H:%M:%S"
+}
+
+load {
+	format = "%1min"
+}
+
+cpu_temperature 0 {
+	format = "%degrees °C"
+#    path = "/sys/devices/platform/coretemp.0/temp1_input"
+}
+
+disk "/home" {
+	format = "~ %avail"
+}
+
+disk "/" {
+	format = "/ %free"
+}
+

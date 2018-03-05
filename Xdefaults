@@ -1,0 +1,107 @@
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+Xft.dpi:                    96
+#Xft.antialias:              false
+Xft.antialias:              true
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+Xft.lcdfilter:              lcddefault
+Xft.autohint:               1
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.urgentOnBell:         true
+URxvt.visualBell:           false
+URxvt.loginShell:           true
+URxvt.saveLines:            80000
+URxvt.internalBorder:       3
+URxvt.lineSpace:            0
+
+! Fonts
+URxvt.allow_bold:           true
+
+*.font:                     -misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
+*.boldFont:                 -misc-fixed-bold-r-normal--18-120-100-100-c-90-iso10646-1
+*.utf8:                     true
+
+! Scrollbar
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+
+! Perl extensions
+URxvt.perl-ext:             default,url-select
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.url-select.launcher:  firefox
+URxvt.url-select.underline: true
+
+! Cursor
+URxvt.cursorBlink:          true
+URxvt.cursorColor:          #657b83
+URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt.pointerBlank:         true
+
+*.background:               #000000
+*.foreground:               #ababab
+URxvt.fading:               10
+URxvt.fadeColor:            #000000
+URxvt.pointerColorBackground: #586e75
+URxvt.pointerColorForeground: #93a1a1
+
+! black dark/light
+*.color0:   #073642
+*.color8:   #002b36
+! red dark/light
+*.color1:   #dc322f
+*.color9:   #cb4b16
+! green dark/light
+*.color2:   #859900
+*.color10:  #586e75
+! yellow dark/light
+*.color3:   #b58900
+!*.color3: #8b0000
+*.color11:  #657b83
+! blue dark/light
+*.color4:   #268bd2
+*.color12:  #839496
+! magenta dark/light
+*.color5:   #d33682
+*.color13:  #6c71c4
+! cyan dark/light
+*.color6:   #2aa198
+*.color14:  #93a1a1
+! white dark/light
+*.color7:   #eee8d5
+*.color15:  #fdf6e3
+
+# new pallete
+
+!! black dark/light
+!*.color0:   #000000
+!*.color8:   #555753
+!! red dark/light
+!*.color1:   #cc0000
+!*.color9:   #EF2929
+!! green dark/light
+!*.color2:   #4E9A06
+!*.color10:  #8AE234
+!! yellow dark/light
+!*.color3:   #C4A000
+!*.color11:  #FCE94F
+!! blue dark/light
+!*.color4:   #3465A4
+!*.color12:  #739FCF
+!! magenta dark/light
+!*.color5:   #75507B
+!*.color13:  #AD7FA8
+!! cyan dark/light
+!*.color6:   #06989A
+!*.color14:  #34E2E2
+!! white dark/light
+!*.color7:   #D3D7CF
+!*.color15:  #EEEEEC
