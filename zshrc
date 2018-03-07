@@ -5,8 +5,6 @@ SAVEHIST=1000
 
 PATH=$PATH:~/bin/
 
-export EDITOR=vim
-
 setopt autocd
 unsetopt LIST_BEEP
 
@@ -21,7 +19,7 @@ source /home/z003kbct/hacks/zsh-git-prompt/zshrc.sh
 compinit
 
 # some keybinding
-#bindkey -v
+bindkey -v
 
 typeset -A key
 
@@ -64,11 +62,6 @@ alias blank='xset dpms force off'
 
 alias -g i3c='~/.config/i3/config'
 
-alias jp='python -mjson.tool'
-
-alias nmc='nmtui-connect'
-alias nme='nmtui-edit'
-
 alias gu='git status --untracked=no'
 alias gd='git diff'
 alias gds='git diff --staged'
@@ -76,7 +69,10 @@ alias gst='git status'
 
 alias sub='OpenSubtitlesDownload.py -l cze'
 alias sube='OpenSubtitlesDownload.py'
+
 alias f='find . -iname'
+
+alias wt='curl -s wttr.in/brno | head -7'
 
 # prompt setting
 PROMPT='%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}$(git_super_status)
@@ -120,27 +116,6 @@ pubip() {
     wget -q -O - http://checkip.dyndns.org/ | sed 's/.*Current IP Address: //; s/<\/.*//'
 }
 
-# stardict wrapper
-d() {
-    s="$@"
-    o=
-    kbm=`setxkbmap -query | sed -n '/layout:/s/.*\(..\)$/\1/p'`
-    #kbm="us"
-    if [[ $kbm == "us" ]]; then
-    chars=(é - ě š č ř ž ý á í)
-    for i in $(seq 0 $((${#s} - 1))); do
-        c="${s:$i:1}"
-        if [[ $c =~ "[2-90]" ]]; then
-            o=${o}${chars[$((c+1))]}
-        else
-            o=${o}${c}
-        fi
-    done
-    fi
-    echo "$o"
-    sdcv $o
-}
-
 # ssh wrapper
 ssh() {
     ssh-add -l > /dev/null
@@ -162,7 +137,3 @@ kbs() {
     # load custom map (has to be after setxkbmap)
     xmodmap ~/.xmodmap
 }
-
-alias xs=' i3lock -t -i .wallpaper; systemctl suspend'
-alias xo='i3-msg exit'
-alias wt='curl -s wttr.in/brno | head -7'
