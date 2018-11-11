@@ -48,6 +48,7 @@ filetype plugin indent on    " required
 ""
 "" shit ends here
 
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4
 set ts=4
 set modelines=5
 set number
@@ -57,6 +58,15 @@ set autowrite
 set relativenumber
 set expandtab
 set laststatus=2
+set backspace=indent,eol,start
+
+set statusline=%F         " Path to the file
+set statusline+=%=        " Switch to the right side
+set statusline+=col:\ %c
+set statusline+=\ line:\
+set statusline+=%l        " Current line
+set statusline+=/         " Separator
+set statusline+=%L        " Total lines
 
 colorscheme peachpuff
 
