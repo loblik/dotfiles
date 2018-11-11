@@ -18,4 +18,6 @@ zshrc $HOME/.zshrc
 xmodmap $HOME/.xmodmap
 vimrc $HOME/.vimrc
 Xdefaults $HOME/.Xdefaults
+profile $HOME/.profile
+xsessionrc $HOME/.xsessionrc
 LINKS
