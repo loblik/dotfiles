@@ -71,7 +71,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-bindsym $mod+q workspace number 11
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam       move workspace number 1
@@ -138,7 +137,7 @@ bindsym Escape mode "default"
 bar {
     status_command i3status
     verbose yes
-    tray_output HDMI-3
+    tray_output primary
 }
 
 bindsym $mod+r mode "resize"
@@ -146,15 +145,13 @@ bindsym $mod+t mode "focus"
 
 mode "focus" {
 
-    bindsym m mode "default", [class="mplayer2"] focus
-    bindsym l mode "default", [class="firefox"] focus
+    bindsym w mode "default", [class="Firefox"] focus
     bindsym i mode "default", [title="irssi"] focus
     bindsym t mode "default", [title="zsh"] focus
 
     bindsym Escape mode "default"
 }
 
-bindsym --release $mod+F5 [title="irssi"] focus, exec xdotool key Alt+q
 
 bindsym $mod+m mode "move"
 
@@ -180,21 +177,11 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 
-bindsym $mod+F1 exec amixer -q set Master 2dB+ unmute
-bindsym $mod+F2 exec amixer -q set Master 2dB- unmute
-bindsym $mod+F3 exec amixer -q set Master toggle
-
 bindsym XF86AudioMute exec amixer -q set Master toggle
 bindsym XF86AudioMicMute exec amixer -q set Capture toggle
 
 bindsym $mod+XF86AudioLowerVolume exec moax-dmenu unmount
 bindsym $mod+XF86AudioRaiseVolume exec moax-dmenu
-
-# music player controls
-#bindsym XF86AudioPlay exec mpc -q toggle
-#bindsym XF86AudioStop exec mpc -q stop
-#bindsym XF86AudioNext exec mpc -q next
-#bindsym XF86AudioPrev exec mpc -q prev
 
 # lock and shutdown
 bindsym $mod+Shift+End exec sudo pm-suspend
@@ -204,10 +191,10 @@ bindsym $mod+Z exec urxvt
 bindsym $mod+x exec urxvt
 
 # make floating windows floating
-for_window [instance="~~*"] floating enable
+for_window [title="mail_handle"] floating enable
 
 # open clipboard in the browser (google search)
-bindsym $mod+o exec /opt/firefox/firefox "www.google.com/search?q=`xclip -o`"
+bindsym $mod+o exec /opt/firefox/firefox "http://www.google.com/search?q=`xclip -o`"
 
 # dmenu (a program launcher)
 bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -l 6 -fn '-*-fixed-medium-r-*-*-18-*-*-*-*-90-iso10646-1' -p 'run>' -nb '#050505' -sb 'darkred' -nf 'gray'"
@@ -228,14 +215,7 @@ workspace 9:mail output eDP-1
 
 exec nm-applet
 
-# assign applications to workspaces
-#assign [class="Dwb"] 1:web
-#assign [title="irssi*"] 2:im
-#assign [instance="download"] 11:down
-#assign [class="rdesktop"] 9
-
 bindsym $mod+Shift+F10 border 1pixel
-bindsym $mod+Shift+F11 border none
 bindsym $mod+Shift+o border normal
 
 for_window [class="GV"] floating enable
@@ -252,4 +232,28 @@ exec xss-lock -- i3lock -t -i ~/.wallpaper
 exec xmodmap ~/.xmodmap
 
 # setup display order
-exec xrandr --output HDMI-3 --left-of eDP-1 && xrandr --output DP-2 --left-of HDMI-3 && feh --bg-fill .wallpaper
+exec xrandr --output DP2 --left-of eDP1 && xrandr --output DP3 --left-of DP2 && feh --bg-fill .wallpaper
+
+exec blueman-applet
+exec pasystray
+
+# Spotify binding and settings
+bindsym $mod+u [con_mark="music"] border normal, scratchpad show, resize set 1800 px 1000 px, move position center, border normal
+for_window [class="Spotify"] mark "music", move scratchpad
+
+bindsym Print exec scrshot.sh
+
+bindsym $mod+F1 exec seat.sh
+bindsym $mod+F3 exec amixer set Master 5%-
+bindsym $mod+F4 exec amixer set Master 5%+
+
+bindsym $mod+F5 exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+F6 exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym $mod+F7 exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+bindsym $mod+F9 exec xbacklight -dec 10
+bindsym $mod+F10 exec xbacklight -inc 10
+bindsym $mod+F11 exec xrandr --output DP2 --left-of eDP1 --auto --output DP3 --left-of DP2 --auto
+bindsym $mod+F12 exec xrandr --output DP3 --off --output DP2 --off
+
+exec spotify
