@@ -70,14 +70,18 @@ alias gst='git status'
 alias sub='OpenSubtitlesDownload.py -l cze'
 alias sube='OpenSubtitlesDownload.py'
 
-alias f='find . -iname'
-
 alias wt='curl -s wttr.in/brno | head -7'
+alias d='sdcv'
+
+alias jl='sudo journalctl'
+alias sc='sudo systemctl'
 
 # prompt setting
 PROMPT='%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}$(git_super_status)
 > '
 RPROMPT="[%{$fg[yellow]%}%?%{$reset_color%}]"
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;37:caret=01;33:locus=01:quote=01'
 
 # print the bell when long running command finishes
 zmodload zsh/datetime
@@ -136,4 +140,12 @@ kbs() {
     setxkbmap -option "grp:alt_shift_toggle" "us,cz"
     # load custom map (has to be after setxkbmap)
     xmodmap ~/.xmodmap
+}
+
+f() {
+    find . -iname "*$1*"
+}
+
+ix() {
+    curl -F "f:1=<-" ix.io
 }
